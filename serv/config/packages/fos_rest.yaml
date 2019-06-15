@@ -1,0 +1,28 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+fos_rest:
+  param_fetcher_listener:  true
+  #    allowed_methods_listener:  true
+  routing_loader:
+    default_format: json
+    include_format: true
+  view:
+    view_response_listener: 'force'
+    formats:
+      xml: true
+      json: true
+    templating_formats:
+      html: true
+    force_redirects:
+      html: true
+    failed_validation: HTTP_BAD_REQUEST
+    default_engine: none
+    mime_types:
+      json: ['application/json', 'application/json;version=1.0', 'application/json;version=1.1']
+  versioning:
+    enabled: true
+    default_version: 1.0.0
+  zone:
+    - { path: ^/v1 }
+  format_listener:
+    rules:
+      - { path: ^/v1, prefer_extension: true, fallback_format: json, priorities: [ json ] }
